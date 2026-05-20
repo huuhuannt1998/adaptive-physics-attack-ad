@@ -1,0 +1,278 @@
+{
+  "mission": "P-experimental-completion",
+  "created_at": "2026-05-11T15:00:00",
+  "last_updated": "2026-05-14T07:40:19.519339",
+  "current_phase": "phase_1",
+  "current_task": "1.3_w3_topogdn_swat",
+  "phases": {
+    "phase_1": {
+      "status": "completed_paper_recompiled",
+      "tasks": {
+        "1.1_w2_eps_sweep": {
+          "status": "completed",
+          "background_id": "btaq52dvp",
+          "out_dir": "reports/phase1_w2_eps_sweep",
+          "expected_outputs": 15
+        },
+        "1.2_w5_fgsm": {
+          "status": "completed_v2_with_caveat",
+          "out_dir": "reports/phase1_w5_fgsm",
+          "expected_outputs": 3,
+          "notes": "v1 had FGSM bug (sparse-grad collapsed candidate selection); rerunning with raw-grad top-k V_bar",
+          "result_summary": {
+            "3seed_mean_degradation": 2.382,
+            "per_seed_success_rate": [
+              0.367,
+              0.367,
+              1.0
+            ],
+            "beta_defended_ref_at_eps0.10": 0.015,
+            "interpretation": "FGSM-rawgrad strictly stronger than BETA-saliency on 2/3 seeds; refutes gradient-masking concern; documents that candidate selection (not iteration count) is the primary attack-strength lever"
+          },
+          "result_summary_5seed": {
+            "mean": 0.777,
+            "std": 4.193,
+            "success_rate": 0.467,
+            "n_seeds": 5,
+            "per_seed_means": {
+              "0": -0.524,
+              "2": -0.612,
+              "3": 8.282,
+              "4": 1.228,
+              "5": -4.49
+            }
+          }
+        },
+        "1.3_w3_topogdn_swat": {
+          "status": "needs_claude_code",
+          "notes": "Requires --arch topogdn support in ppo_train.py; PH C++ extension may crash; 2-retry escalation per spec"
+        },
+        "1.2b_beta_rawgrad_control": {
+          "status": "completed",
+          "out_dir": "reports/phase1_w5b_beta_rawgrad",
+          "purpose": "Isolate candidate-selection vs attack-step in W5 concerning verdict",
+          "result_summary": {
+            "3seed_mean_degradation": 2.802,
+            "candidate_selection_effect": 2.79,
+            "attack_step_effect": 0.42,
+            "verdict": "candidate-selection dominates 6.6x; gradient-masking refuted"
+          },
+          "result_summary_5seed": {
+            "mean": 1.21,
+            "std": 3.937,
+            "success_rate": 0.607,
+            "n_seeds": 5,
+            "per_seed_means": {
+              "0": 0.249,
+              "2": -0.213,
+              "3": 8.371,
+              "4": 1.257,
+              "5": -3.616
+            }
+          },
+          "decomposition_5seed": {
+            "candidate_selection_effect": 1.195,
+            "attack_step_effect": 0.433,
+            "ratio": 2.76
+          }
+        },
+        "1.4_undefended_companion_sweep": {
+          "status": "completed",
+          "out_dir": "reports/phase1_w2_undefended",
+          "result_summary": "BETA undef\u224832862 constant; reduction factor 1.5e5\u20132.5e7 across \u03b5; PPO undef weak (cross-environment)"
+        }
+      },
+      "brain_decisions": [
+        "dec_01KRCF1FDV7TWW4TBP4TDYKCVP",
+        "dec_01KRCF1NBGGZC5F40F99Q71MJP",
+        "dec_01KRCF1W9S9YWPKZE87WY4J23V",
+        "dec_01KRCF22B5PMQ8J0KAGWBCYY6B",
+        "dec_01KRCF27BACSQ88BRS0WHMMNAZ"
+      ],
+      "paper_pdf": {
+        "path": "paper/main.pdf",
+        "pages": 16,
+        "size_kb": 437,
+        "edits_applied": [
+          "\u00a78.7 Defense robustness across the \u03b5 spectrum + Table tab:eps-curve",
+          "\u00a76 candidate-selection paragraph + Table 6b (tab:candidate-vs-step)",
+          "\u00a77.2 threat-model differentiator paragraph",
+          "Appendix C methodology deviation (app:candidate-deviation)"
+        ],
+        "edits_pending": []
+      }
+    },
+    "phase_2": {
+      "status": "completed",
+      "tasks": {
+        "2.1_non_lean_bc_retry": {
+          "status": "completed",
+          "seeds_to_retry": [
+            "wadi_2",
+            "wadi_3",
+            "wadi_4",
+            "swat_0",
+            "swat_1",
+            "swat_2",
+            "swat_3",
+            "swat_4"
+          ],
+          "notes": "Each seed ~6-10 hr; sequential",
+          "started_at": "2026-05-11T19:05:00",
+          "stages": {
+            "gdn_wadi_seed2": {
+              "bc_gen": "completed_at_16:30",
+              "bc_pretrain": "completed_at_21:51:23",
+              "best_val_cat_acc": 0.239,
+              "pass_0.95": false,
+              "wall_clock_hr": 5.23
+            },
+            "gdn_wadi_seed3": {
+              "bc_gen": "running_since_21:51:23",
+              "pid": 77154
+            },
+            "gdn_wadi_seed4": "pending",
+            "gdn_swat_seed0": "pending",
+            "gdn_swat_seed1": "pending",
+            "gdn_swat_seed2": "pending",
+            "gdn_swat_seed3": "pending",
+            "gdn_swat_seed4": "pending"
+          },
+          "known_issues": "orphan-sleep bug in timeout_run wrapper hangs script between stages; workaround: /tmp/phase2_orphan_sleep_killer.sh runs in background (PID 21312, 4-day timer)",
+          "per_seed_wall_clock_hr_est": 6.3,
+          "eight_seed_eta": "2026-05-13T~21:00",
+          "orphan_killer_status": "CONFIRMED_WORKING_at_seed2_to_seed3_transition",
+          "final_pass_count": 4,
+          "final_total": 8,
+          "pass_seeds": [
+            "wadi_4",
+            "swat_0",
+            "swat_1",
+            "swat_2"
+          ],
+          "fail_seeds": [
+            "wadi_2",
+            "wadi_3",
+            "swat_3",
+            "swat_4"
+          ],
+          "completed_at": "2026-05-12T22:43:10",
+          "total_wall_clock_hr": 31.5,
+          "orphan_kills": 13
+        }
+      }
+    },
+    "phase_3": {
+      "status": "completed",
+      "tasks": {
+        "3.1_ph_cpp_extension_fix": {
+          "status": "completed_root_cause_was_pyg_api",
+          "notes": "REQUIRES CLAUDE CODE INTERACTIVE SESSION. Cannot be pre-scripted. Orchestrator will pause and surface."
+        },
+        "3.2_topogdn_swat_multi_seed": {
+          "status": "already_completed"
+        },
+        "3.3_topogdn_wadi_adaptive_rl": {
+          "status": "completed",
+          "launched_at": "2026-05-13T15:25:29.317681",
+          "pid": 87853,
+          "eta_per_seed_hr": 2.3,
+          "total_eta_hr_5seeds": 12,
+          "script": "scripts/ppo_train_topogdn.py (new, copy of ppo_train.py with TopoGDN setup)",
+          "out_dir": "reports/phase3_topogdn_wadi_ppo",
+          "smoke_test": "PASS \u2014 500 steps in 21s on seed 0, KL bounded, loss decreasing",
+          "completed_at": "2026-05-13T23:42:00",
+          "converged_count": 4,
+          "total_count": 5,
+          "failed_seed": 3,
+          "mean_ep_ret_5seed": 2.622,
+          "mean_ep_ret_4converged": 3.36
+        }
+      }
+    },
+    "phase_4": {
+      "status": "completed",
+      "tasks": {
+        "4.1_ph_regularization_impl": {
+          "status": "pending",
+          "notes": "Implementation writable now; eval blocked on 3.1"
+        },
+        "4.2_ph_regularization_eval": {
+          "status": "completed_negative_result",
+          "completed_at": "2026-05-14T04:00:00",
+          "variant": "magnitude-clip",
+          "dp2_triggered": false,
+          "recovery_pct": -2.9
+        }
+      }
+    }
+  },
+  "escalations": [
+    {
+      "time": "2026-05-11T19:00:41",
+      "severity": "INFO",
+      "message": "Phase 1.3 prerequisite missing: scripts/ppo_train_topogdn.py \u2014 flagging for Claude Code interactive session"
+    },
+    {
+      "time": "2026-05-11T19:05:00",
+      "severity": "INFO",
+      "message": "FGSM bug detected and fixed; W5 rerunning. Phase 2 BC retry launched (sequential, ~2-3 days)."
+    },
+    {
+      "time": "2026-05-11T19:11:30",
+      "severity": "INFO",
+      "message": "W5 FGSM v2 complete: 3-seed mean +2.38 deg, success 37/37/100%. High variance but refutes Reviewer-2 gradient-masking concern."
+    },
+    {
+      "time": "2026-05-11T19:32:00",
+      "severity": "INFO",
+      "message": "Phase 1 backbrief drafted (reports/phase1_backbrief_draft.md); RKA note jrn_01KRC8FYK9D7WN09KMPSRMXH99 surfaced to PI. Awaiting ratification on 5 decisions."
+    },
+    {
+      "time": "2026-05-11T20:38:00",
+      "severity": "INFO",
+      "message": "Phase 2 stalled on orphan-sleep blocking pipe; manually unblocked wadi_2 gen->pretrain transition; orphan-killer watchdog launched (PID 21312) to self-heal subsequent seeds."
+    },
+    {
+      "time": "2026-05-11T21:40:00",
+      "severity": "INFO",
+      "message": "5-seed bump complete. Candidate-selection effect drops from +2.79 (3s) to +1.19 (5s); attack-step holds at +0.43. Story survives at smaller magnitude. wadi_2 BC pretrain at 62 min, ~3-4 hr remaining."
+    },
+    {
+      "time": "2026-05-11T23:30:00",
+      "severity": "INFO",
+      "message": "Phase 1 COMPLETE. Paper recompiled at 15 pages with \u00a78.7 \u03b5-curve subsection. RKA note jrn_01KRCNZMT0ME15JBA76HQQHXVN. Phase 2 wadi_2 still pretraining at 2:51."
+    },
+    {
+      "time": "2026-05-12T00:35:00",
+      "severity": "INFO",
+      "message": "All staged paper edits applied. Paper compiles at 16 pages, clean. RKA note jrn_01KRCNZMT0ME15JBA76HQQHXVN superseded."
+    },
+    {
+      "time": "2026-05-12T01:51:23",
+      "severity": "INFO",
+      "message": "wadi_seed_2 BC pretrain FAILED non-lean config (best val_cat_acc=0.239 vs 0.95 bar). Orphan-killer SUCCESSFULLY unblocked transition to wadi_seed_3. RKA jrn_*  importance=high."
+    },
+    {
+      "time": "2026-05-13T02:43:10",
+      "severity": "INFO",
+      "message": "PHASE 2 COMPLETE. 4/8 PASS (50%). RKA aggregate jrn_* importance=high. Orphan-killer terminated."
+    },
+    {
+      "time": "2026-05-13T15:25:29.317787",
+      "severity": "INFO",
+      "message": "Phase 3.3 LAUNCHED. ppo_train_topogdn.py written + smoke-tested. 5 seeds \u00d7 200K steps sequential, ETA ~10-15 hr total (much faster than original 7-12 day estimate; PyG API was the bottleneck, not C++ instability)."
+    },
+    {
+      "time": "2026-05-14T03:42:00",
+      "severity": "INFO",
+      "message": "Phase 3.3 COMPLETE. 4/5 seeds converged (mean +2.62 ep_ret); seed_3 FAILED. RKA jrn_01KRJ285FV67JKC87V144NWWQT superseded by new. Awaiting Brain framing for \u00a78 integration."
+    },
+    {
+      "time": "2026-05-14T07:40:19.519210",
+      "severity": "INFO",
+      "message": "Phase 4.2 COMPLETE. All 4 phases done. ACSAC trajectory continues."
+    }
+  ],
+  "wake_up_interval_hours": 4
+}

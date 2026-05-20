@@ -1,0 +1,13 @@
+{
+  "seed": 0,
+  "dataset": "wadi",
+  "ph_clip": 5.0,
+  "scenario": "clean_defended",
+  "threshold_abs": 83.1915,
+  "val_residual_mean": 0.1069527417421341,
+  "val_residual_max": 1.1064960956573486,
+  "val_residual_p99": 0.37773844242095833,
+  "val_residual_p99.5": 0.48569628715515273,
+  "smoke_forecast_min": 0.054277271032333374,
+  "smoke_forecast_max": 1.1437437534332275
+}

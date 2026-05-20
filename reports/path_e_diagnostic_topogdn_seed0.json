@@ -1,0 +1,303 @@
+{
+  "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/TopoGDN/pretrained/wadi_seed0/best_05|01-12:01:46.pt",
+  "input_shape": [
+    32,
+    127,
+    100
+  ],
+  "tcn": {
+    "status": "active",
+    "input_stats": {
+      "shape": [
+        32,
+        127,
+        100
+      ],
+      "mean": 0.22352933883666992,
+      "std": 0.3344614803791046,
+      "min": 0.0,
+      "max": 1.0,
+      "abs_mean": 0.22352933883666992,
+      "fraction_zero": 0.4440600275993347,
+      "has_nan": false
+    },
+    "output_stats": {
+      "shape": [
+        32,
+        127,
+        100
+      ],
+      "mean": 0.38450297713279724,
+      "std": 0.6592640280723572,
+      "min": 0.0,
+      "max": 15.753013610839844,
+      "abs_mean": 0.38450297713279724,
+      "fraction_zero": 0.35221949219703674,
+      "has_nan": false
+    },
+    "delta_abs_mean": 0.16097363829612732
+  },
+  "ph": {
+    "status": "active",
+    "forward_output_stats": {
+      "shape": [
+        32,
+        127
+      ],
+      "mean": 0.23869085311889648,
+      "std": 0.3329007625579834,
+      "min": -0.012362644076347351,
+      "max": 0.9987996816635132,
+      "abs_mean": 0.23995155096054077,
+      "fraction_zero": 0.0,
+      "has_nan": false
+    },
+    "ph_layer_outputs": [
+      {
+        "layer": "gnn_layers[0].topoPooling",
+        "stats": {
+          "shape": [
+            4064,
+            128
+          ],
+          "mean": 1.0614135265350342,
+          "std": 1.3231428861618042,
+          "min": 0.0,
+          "max": 5.848177909851074,
+          "abs_mean": 1.0614135265350342,
+          "fraction_zero": 0.460933655500412,
+          "has_nan": false
+        }
+      }
+    ]
+  },
+  "differential_ph_ablation": {
+    "with_ph_stats": {
+      "shape": [
+        32,
+        127
+      ],
+      "mean": 0.23869085311889648,
+      "std": 0.3329007625579834,
+      "min": -0.012362644076347351,
+      "max": 0.9987996816635132,
+      "abs_mean": 0.23995155096054077,
+      "fraction_zero": 0.0,
+      "has_nan": false
+    },
+    "no_ph_stats": {
+      "shape": [
+        32,
+        127
+      ],
+      "mean": 0.18756218254566193,
+      "std": 0.10503274947404861,
+      "min": 0.07507815957069397,
+      "max": 0.5211821794509888,
+      "abs_mean": 0.18756218254566193,
+      "fraction_zero": 0.0,
+      "has_nan": false
+    },
+    "delta_stats": {
+      "shape": [
+        32,
+        127
+      ],
+      "mean": 0.05112867429852486,
+      "std": 0.23910784721374512,
+      "min": -0.2259427011013031,
+      "max": 0.740857720375061,
+      "abs_mean": 0.18249215185642242,
+      "fraction_zero": 0.0,
+      "has_nan": false
+    },
+    "delta_relative_to_output": 0.7605374965285059
+  },
+  "ph_gradient": {
+    "layers_observed": 1,
+    "grads": [
+      {
+        "layer": "gnn_layers[0].topoPooling",
+        "stats": {
+          "shape": [
+            4064,
+            128
+          ],
+          "mean": -1.3427579208436955e-15,
+          "std": 1.790184001038142e-06,
+          "min": -6.336595106404275e-05,
+          "max": 0.00012932528625242412,
+          "abs_mean": 5.688399369319086e-07,
+          "fraction_zero": 0.1312303990125656,
+          "has_nan": false
+        }
+      }
+    ]
+  },
+  "param_gradients": {
+    "by_bucket": {
+      "tcn": {
+        "n_params": 12,
+        "grad_abs_mean_median": 8.380912913708016e-05,
+        "grad_abs_mean_max": 0.0003297860093880445,
+        "grad_abs_mean_min": 3.4819100380723e-10
+      },
+      "other": {
+        "n_params": 13,
+        "grad_abs_mean_median": 0.0006108354427851737,
+        "grad_abs_mean_max": 0.012538949958980083,
+        "grad_abs_mean_min": 3.306079452158883e-05
+      },
+      "topo": {
+        "n_params": 41,
+        "grad_abs_mean_median": 0.00018263465608470142,
+        "grad_abs_mean_max": 0.005945246201008558,
+        "grad_abs_mean_min": 1.9983363017672673e-06
+      }
+    },
+    "per_param_top10_smallest_grad_abs_mean": [
+      {
+        "name": "MSConv.conv2.bias",
+        "bucket": "tcn",
+        "param_abs_mean": 0.0024862203281372786,
+        "grad_abs_mean": 3.4819100380723e-10,
+        "grad_to_param_ratio": 1.4004832848968363e-07
+      },
+      {
+        "name": "MSConv.conv1.bias",
+        "bucket": "tcn",
+        "param_abs_mean": 0.003152240999042988,
+        "grad_abs_mean": 4.4006787103256784e-10,
+        "grad_to_param_ratio": 1.3960476508145803e-07
+      },
+      {
+        "name": "MSConv.conv3.bias",
+        "bucket": "tcn",
+        "param_abs_mean": 0.002633982803672552,
+        "grad_abs_mean": 2.2708306346430618e-09,
+        "grad_to_param_ratio": 8.621281040177564e-07
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.filtration_modules.2.0.weight",
+        "bucket": "topo",
+        "param_abs_mean": 0.07776428759098053,
+        "grad_abs_mean": 1.9983363017672673e-06,
+        "grad_to_param_ratio": 2.5697352612041868e-05
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.filtration_modules.5.0.weight",
+        "bucket": "topo",
+        "param_abs_mean": 0.07911361753940582,
+        "grad_abs_mean": 2.6745283321361057e-06,
+        "grad_to_param_ratio": 3.380616908543743e-05
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.out.bias",
+        "bucket": "topo",
+        "param_abs_mean": 0.16035474836826324,
+        "grad_abs_mean": 4.529932084551547e-06,
+        "grad_to_param_ratio": 2.8249442038941197e-05
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.filtration_modules.0.0.weight",
+        "bucket": "topo",
+        "param_abs_mean": 0.07563511282205582,
+        "grad_abs_mean": 9.663499440648593e-06,
+        "grad_to_param_ratio": 0.00012776472431141883
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.filtration_modules.7.0.weight",
+        "bucket": "topo",
+        "param_abs_mean": 0.0749504342675209,
+        "grad_abs_mean": 1.2938445252075326e-05,
+        "grad_to_param_ratio": 0.00017262669280171394
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.out.weight",
+        "bucket": "topo",
+        "param_abs_mean": 0.05912438780069351,
+        "grad_abs_mean": 1.5049333342176396e-05,
+        "grad_to_param_ratio": 0.00025453680427744985
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.filtration_modules.1.0.weight",
+        "bucket": "topo",
+        "param_abs_mean": 0.08980478346347809,
+        "grad_abs_mean": 1.571611392137129e-05,
+        "grad_to_param_ratio": 0.00017500307876616716
+      }
+    ],
+    "per_param_top10_largest_grad_abs_mean": [
+      {
+        "name": "out_layer.mlp.0.weight",
+        "bucket": "other",
+        "param_abs_mean": 0.014102079905569553,
+        "grad_abs_mean": 0.012538949958980083,
+        "grad_to_param_ratio": 0.8891560435295105
+      },
+      {
+        "name": "out_layer.mlp.0.bias",
+        "bucket": "other",
+        "param_abs_mean": 0.22995342314243317,
+        "grad_abs_mean": 0.007458504289388657,
+        "grad_to_param_ratio": 0.032434847205877304
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.filtration_modules.4.2.bias",
+        "bucket": "topo",
+        "param_abs_mean": 0.06118519976735115,
+        "grad_abs_mean": 0.005945246201008558,
+        "grad_to_param_ratio": 0.09716804325580597
+      },
+      {
+        "name": "gnn_layers.0.gnn.att_j",
+        "bucket": "other",
+        "param_abs_mean": 0.07686418294906616,
+        "grad_abs_mean": 0.0028997454792261124,
+        "grad_to_param_ratio": 0.037725575268268585
+      },
+      {
+        "name": "gnn_layers.0.gnn.att_i",
+        "bucket": "other",
+        "param_abs_mean": 0.08103112876415253,
+        "grad_abs_mean": 0.002442245604470372,
+        "grad_to_param_ratio": 0.03013959713280201
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.coord_fun_modules.3.c_param",
+        "bucket": "topo",
+        "param_abs_mean": 0.0869717225432396,
+        "grad_abs_mean": 0.001997539075091481,
+        "grad_to_param_ratio": 0.022967685014009476
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.filtration_modules.0.2.bias",
+        "bucket": "topo",
+        "param_abs_mean": 0.07926623523235321,
+        "grad_abs_mean": 0.0017734273569658399,
+        "grad_to_param_ratio": 0.022373048588633537
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.filtration_modules.6.2.bias",
+        "bucket": "topo",
+        "param_abs_mean": 0.1332586407661438,
+        "grad_abs_mean": 0.0016426361398771405,
+        "grad_to_param_ratio": 0.012326676398515701
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.filtration_modules.5.2.bias",
+        "bucket": "topo",
+        "param_abs_mean": 0.03101195953786373,
+        "grad_abs_mean": 0.0015547493239864707,
+        "grad_to_param_ratio": 0.05013386160135269
+      },
+      {
+        "name": "gnn_layers.0.topoPooling.coord_fun_modules.0.t_param",
+        "bucket": "topo",
+        "param_abs_mean": 0.15924201905727386,
+        "grad_abs_mean": 0.0012290510348975658,
+        "grad_to_param_ratio": 0.007718132808804512
+      }
+    ]
+  }
+}

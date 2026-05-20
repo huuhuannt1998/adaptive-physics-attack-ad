@@ -1,0 +1,95 @@
+{
+    "tn": 2457,
+    "fp": 391,
+    "fn": 101,
+    "tp": 51,
+    "Accuracy": 0.836,
+    "Precision": 0.11538461538461539,
+    "Inverse-Precision": 0.9605160281469899,
+    "Recall": 0.3355263157894737,
+    "Inverse-Recall": 0.8627106741573034,
+    "Fallout": 0.13728932584269662,
+    "Missrate": 0.6644736842105263,
+    "Informedness": 0.19823698994677708,
+    "Markedness": 0.0759006435316052,
+    "F0.1": 0.11613906926406926,
+    "F0.5": 0.1328125,
+    "F1": 0.17171717171717168,
+    "F2": 0.24285714285714285,
+    "F10": 0.3293057153816647,
+    "MCC": 0.12266342204882728,
+    "Jaccard-Index": 0.09392265193370165,
+    "Jaccard-Distance": 0.9060773480662984,
+    "Detected-Scenarios": [
+        "1"
+    ],
+    "Detected-Scenarios-Percent": 1.0,
+    "Scenario-Recall": {
+        "1": 0
+    },
+    "Penalty-Score": 391,
+    "Detection-Delay": 5,
+    "Average-Time-to-Detection": 5.0,
+    "TPA": 7,
+    "FPA": 109,
+    "eTaR": 0.6677631578947368,
+    "eTaP": 0.08605404884138103,
+    "eTaF0.1": 0.08680272742102163,
+    "eTaF0.5": 0.10421019217723562,
+    "eTaF1": 0.15246063074828253,
+    "eTaF2": 0.2839174693575492,
+    "eTaF10": 0.6258741389664818,
+    "BATADAL-TTD": 0.9668874172185431,
+    "BATADAL-CLF": 0.5991184949733885,
+    "BATADAL": 0.7830029560959658,
+    "NAB-score-default": -2028.0886292017897,
+    "NAB-score-low-fp": -4156.056940898415,
+    "NAB-score-low-fn": -1318.725752801193,
+    "Affiliation-Precision": 0.47752073906485676,
+    "Affiliation-Recall": 0.9955756578947368,
+    "Affiliation-F0.1": 0.47999369106900436,
+    "Affiliation-F0.5": 0.5329897447084856,
+    "Affiliation-F1": 0.6454540584500743,
+    "Affiliation-F2": 0.8180727454303278,
+    "Affiliation-F10": 0.9849953966667876,
+    "_evaluation-config": {
+        "version": "v1.3.2",
+        "compresslevel": 6,
+        "input": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/reports/ipal/wadi_seed0_clean_undefended_p995.ipal.gz",
+        "output": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/reports/ipal/wadi_seed0_clean_undefended_p995.metrics.json",
+        "attacks": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/reports/ipal/wadi_seed0_clean_undefended_p995.attacks.json",
+        "timed_dataset": true,
+        "alarm_gracetime": 0,
+        "fscore_beta": [
+            0.1,
+            0.5,
+            1,
+            2,
+            10
+        ],
+        "eTaPR_theta_p": 0.5,
+        "eTaPR_theta_r": 0.01,
+        "eTaPR_delta": 0.0,
+        "batadal_gamma": 0.5,
+        "nab_profiles": {
+            "default": {
+                "nab_atp": 1,
+                "nab_afp": -0.11,
+                "nab_afn": -1
+            },
+            "reward_low_fp": {
+                "nab_atp": 1,
+                "nab_afp": -0.22,
+                "nab_afn": -1
+            },
+            "reward_low_fn": {
+                "nab_atp": 1,
+                "nab_afp": -0.11,
+                "nab_afn": -2.0
+            }
+        },
+        "log": 30,
+        "logformat": "%(levelname)s:%(name)s: %(message)s",
+        "logfile": "-"
+    }
+}

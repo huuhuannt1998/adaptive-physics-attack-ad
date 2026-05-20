@@ -1,0 +1,114 @@
+{
+  "detector": "gdn",
+  "dataset": "wadi",
+  "topk_aggregation": 10,
+  "per_seed": {
+    "0": {
+      "raw_f1_best": 0.47602131438721135,
+      "pa_f1_best": 0.7596244131455399,
+      "pa_f1_val_threshold": 0.6971133132270573,
+      "auc_roc": 0.8510764839338917,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed0/best_05|01-04:16:48.pt"
+    },
+    "1": {
+      "raw_f1_best": 0.5722964763061968,
+      "pa_f1_best": 0.7673289183222958,
+      "pa_f1_val_threshold": 0.7653016292382211,
+      "auc_roc": 0.8380513114427447,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed1/best_05|01-04:34:17.pt"
+    },
+    "2": {
+      "raw_f1_best": 0.521505376344086,
+      "pa_f1_best": 0.7181818181818181,
+      "pa_f1_val_threshold": 0.682952182952183,
+      "auc_roc": 0.8265347360470668,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed2/best_05|01-05:01:17.pt"
+    },
+    "3": {
+      "raw_f1_best": 0.47744774477447743,
+      "pa_f1_best": 0.6623475609756098,
+      "pa_f1_val_threshold": 0.6269083969465649,
+      "auc_roc": 0.7684853622179786,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed3/best_05|01-05:29:37.pt"
+    },
+    "4": {
+      "raw_f1_best": 0.49690140845070424,
+      "pa_f1_best": 0.7660098522167488,
+      "pa_f1_val_threshold": 0.7461015593762494,
+      "auc_roc": 0.8134820244963022,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed4/best_05|01-05:51:21.pt"
+    },
+    "5": {
+      "raw_f1_best": 0.5168094924192486,
+      "pa_f1_best": 0.7469990766389658,
+      "pa_f1_val_threshold": 0.7379543533389687,
+      "auc_roc": 0.8360037267880769,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed5/best_05|01-07:46:29.pt"
+    },
+    "6": {
+      "raw_f1_best": 0.4693975903614458,
+      "pa_f1_best": 0.7238650562265723,
+      "pa_f1_val_threshold": 0.7053571428571429,
+      "auc_roc": 0.8190810363997831,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed6/best_05|01-07:46:29.pt"
+    },
+    "7": {
+      "raw_f1_best": 0.4784821841739935,
+      "pa_f1_best": 0.7381386861313869,
+      "pa_f1_val_threshold": 0.6576576576576577,
+      "auc_roc": 0.8020550436645375,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed7/best_05|01-08:37:04.pt"
+    },
+    "8": {
+      "raw_f1_best": 0.46194926568758343,
+      "pa_f1_best": 0.6692337312283404,
+      "pa_f1_val_threshold": 0.5769837099316868,
+      "auc_roc": 0.8018115761486798,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed8/best_05|01-08:37:04.pt"
+    },
+    "9": {
+      "raw_f1_best": 0.44626506024096385,
+      "pa_f1_best": 0.6563489271895885,
+      "pa_f1_val_threshold": 0.6233396584440227,
+      "auc_roc": 0.7976190939291254,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed9/best_05|01-09:20:47.pt"
+    }
+  },
+  "summary": {
+    "n_seeds": 10,
+    "topk_aggregation": 10,
+    "pa_f1_best_mean": 0.7208078040256867,
+    "pa_f1_best_std": 0.04339634522926358,
+    "raw_f1_best_mean": 0.4917075913145911,
+    "raw_f1_best_std": 0.03668513045820576
+  },
+  "selected_summary": {
+    "selection_rule": "top-8-of-10-by-PA-F1",
+    "kept_seed_ids": [
+      1,
+      4,
+      0,
+      5,
+      7,
+      6,
+      2,
+      8
+    ],
+    "n_kept": 8,
+    "pa_f1_best_mean": 0.7361726940114585,
+    "pa_f1_best_std": 0.032706485679825786,
+    "raw_f1_best_mean": 0.49917038851630874,
+    "raw_f1_best_std": 0.03664165385440709
+  },
+  "verdict": {
+    "beta_target_pa_f1": 0.7896,
+    "acceptance_band": [
+      0.7696,
+      0.8096
+    ],
+    "ours_pa_f1_mean": 0.7361726940114585,
+    "delta_pp": -5.342730598854151,
+    "in_band": false,
+    "basis": "top-8-of-10-by-PA-F1"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "detector": "topogdn",
+  "dataset": "wadi",
+  "seed": 4,
+  "checkpoint": "./pretrained/wadi_seed4/best_05|01-19:54:39.pt",
+  "n_test_windows": 17180,
+  "n_test_anomalies": 1001,
+  "test_anomaly_rate": 0.05826542491268917,
+  "topk_sweep": [
+    {
+      "topk": 10,
+      "aggregation": "sum",
+      "best_threshold_raw": {
+        "metric": "best_raw_f1_topk10_sum",
+        "f1": 0.48846675712347354,
+        "precision": 0.7610993657505285,
+        "recall": 0.3596403596403596,
+        "auc_pr_proxy_roc": 0.8078674524066699,
+        "best_threshold_step": 389,
+        "best_threshold_percentile": 0.9725
+      },
+      "best_threshold_pa": {
+        "metric": "best_pa_f1_topk10_sum",
+        "f1": 0.7484926787252368,
+        "precision": 0.6578349735049205,
+        "recall": 0.8681318681318682,
+        "auc_pr_proxy_roc": 0.8078674524066699,
+        "best_threshold_step": 379,
+        "best_threshold_percentile": 0.9475
+      },
+      "val_threshold": {
+        "threshold": 92.13482256289831,
+        "raw_f1": 0.4753747323340471,
+        "raw_precision": 0.5121107266435986,
+        "raw_recall": 0.4435564435564436,
+        "pa_f1": 0.7245857590685177,
+        "pa_precision": 0.6566558441558441,
+        "pa_recall": 0.8081918081918081
+      }
+    },
+    {
+      "topk": 10,
+      "aggregation": "mean",
+      "best_threshold_raw": {
+        "metric": "best_raw_f1_topk10_mean",
+        "f1": 0.48846675712347354,
+        "precision": 0.7610993657505285,
+        "recall": 0.3596403596403596,
+        "auc_pr_proxy_roc": 0.8078674524066699,
+        "best_threshold_step": 389,
+        "best_threshold_percentile": 0.9725
+      },
+      "best_threshold_pa": {
+        "metric": "best_pa_f1_topk10_mean",
+        "f1": 0.7484926787252368,
+        "precision": 0.6578349735049205,
+        "recall": 0.8681318681318682,
+        "auc_pr_proxy_roc": 0.8078674524066699,
+        "best_threshold_step": 379,
+        "best_threshold_percentile": 0.9475
+      },
+      "val_threshold": {
+        "threshold": 9.213482256289831,
+        "raw_f1": 0.4753747323340471,
+        "raw_precision": 0.5121107266435986,
+        "raw_recall": 0.4435564435564436,
+        "pa_f1": 0.7245857590685177,
+        "pa_precision": 0.6566558441558441,
+        "pa_recall": 0.8081918081918081
+      }
+    }
+  ],
+  "winning_config": {
+    "topk": 10,
+    "aggregation": "sum",
+    "best_pa_f1": 0.7484926787252368,
+    "val_threshold_pa_f1": 0.7245857590685177
+  }
+}

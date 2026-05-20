@@ -1,0 +1,13 @@
+{
+  "bc_checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/reports/bc_policy_gdn_wadi_seed0.pt",
+  "seed": 0,
+  "n_trials": 50,
+  "budget": 5,
+  "bc_degradation_mean": 0.07703125,
+  "bc_degradation_std": 0.0016181496232193736,
+  "beta_degradation_mean": 18899.613115005493,
+  "beta_degradation_std": 18.98693313476391,
+  "ratio_bc_over_beta": 4.0758109455076855e-06,
+  "ratio_target": 0.8,
+  "passes_target": false
+}

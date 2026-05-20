@@ -1,0 +1,12 @@
+{
+  "variant": "clip_only",
+  "seed": 0,
+  "dataset": "wadi",
+  "n_detected_holdout": 0,
+  "target_rotation": [],
+  "beta_degradation_mean": 0.0,
+  "beta_degradation_std": 0.0,
+  "threshold": 96.3949966430664,
+  "n_trials_completed": 0,
+  "note": "no detection under this variant \u2014 degenerate"
+}

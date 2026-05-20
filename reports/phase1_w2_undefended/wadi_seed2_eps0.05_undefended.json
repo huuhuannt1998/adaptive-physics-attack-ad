@@ -1,0 +1,283 @@
+{
+  "defended": false,
+  "ppo_checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/reports/ppo_policy_defended_wadi_seed2.pt",
+  "seed": 2,
+  "n_trials": 30,
+  "n_rollouts_per_trial": 3,
+  "budget": 5,
+  "target_rotation": [
+    7,
+    10,
+    11,
+    14,
+    16,
+    27,
+    36,
+    44,
+    47,
+    48
+  ],
+  "n_detected_holdout": 2300,
+  "threshold": 6.121270112991352,
+  "n_oor_clipped": 1033550,
+  "ppo_degradation_mean": 0.0,
+  "ppo_degradation_std": 0.0,
+  "beta_degradation_mean": 77879.00270062077,
+  "beta_degradation_std": 46346.70193189617,
+  "ratio_ppo_over_beta": 0.0,
+  "ppo_flip_rate": 0.0,
+  "beta_flip_rate": 0.9333333333333333,
+  "n_eligible_for_flip": 30,
+  "ppo_per_trial_degradations": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "beta_per_trial_degradations": [
+    25687.01025979221,
+    62912.2709158659,
+    35121.693937420845,
+    25707.88916604221,
+    40513.40124320984,
+    107537.38200449944,
+    78521.61350870132,
+    107460.33655691892,
+    163871.00022988382,
+    164156.09700812772,
+    78383.49930977821,
+    107591.6137959212,
+    107741.1180318594,
+    107802.13084256649,
+    40513.61979389191,
+    76753.87429032847,
+    25674.68537810445,
+    107644.59972989559,
+    164042.47493387572,
+    35215.50942015648,
+    78612.18579339981,
+    25510.0270639956,
+    25514.422957479954,
+    25444.452454566956,
+    164313.14903523587,
+    107617.60369646549,
+    25504.10571193695,
+    35172.53906106949,
+    78411.00871038437,
+    107418.76617724821
+  ],
+  "ppo_per_trial_flips": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "beta_per_trial_flips": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    0.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    0.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "ppo_success_rate": 0.0,
+  "beta_success_rate": 1.0,
+  "trial_pairs": [
+    {
+      "window_idx": 15935,
+      "target_idx": 44
+    },
+    {
+      "window_idx": 15878,
+      "target_idx": 10
+    },
+    {
+      "window_idx": 16675,
+      "target_idx": 36
+    },
+    {
+      "window_idx": 15929,
+      "target_idx": 44
+    },
+    {
+      "window_idx": 17107,
+      "target_idx": 7
+    },
+    {
+      "window_idx": 15070,
+      "target_idx": 47
+    },
+    {
+      "window_idx": 15782,
+      "target_idx": 16
+    },
+    {
+      "window_idx": 16859,
+      "target_idx": 48
+    },
+    {
+      "window_idx": 16052,
+      "target_idx": 14
+    },
+    {
+      "window_idx": 15109,
+      "target_idx": 14
+    },
+    {
+      "window_idx": 17091,
+      "target_idx": 16
+    },
+    {
+      "window_idx": 15093,
+      "target_idx": 48
+    },
+    {
+      "window_idx": 16912,
+      "target_idx": 47
+    },
+    {
+      "window_idx": 15976,
+      "target_idx": 47
+    },
+    {
+      "window_idx": 15177,
+      "target_idx": 7
+    },
+    {
+      "window_idx": 17149,
+      "target_idx": 11
+    },
+    {
+      "window_idx": 16234,
+      "target_idx": 44
+    },
+    {
+      "window_idx": 15237,
+      "target_idx": 47
+    },
+    {
+      "window_idx": 15835,
+      "target_idx": 14
+    },
+    {
+      "window_idx": 16031,
+      "target_idx": 36
+    },
+    {
+      "window_idx": 17151,
+      "target_idx": 16
+    },
+    {
+      "window_idx": 16013,
+      "target_idx": 27
+    },
+    {
+      "window_idx": 15303,
+      "target_idx": 27
+    },
+    {
+      "window_idx": 16590,
+      "target_idx": 27
+    },
+    {
+      "window_idx": 16818,
+      "target_idx": 14
+    },
+    {
+      "window_idx": 15165,
+      "target_idx": 47
+    },
+    {
+      "window_idx": 15172,
+      "target_idx": 27
+    },
+    {
+      "window_idx": 15689,
+      "target_idx": 36
+    },
+    {
+      "window_idx": 15483,
+      "target_idx": 16
+    },
+    {
+      "window_idx": 15113,
+      "target_idx": 48
+    }
+  ]
+}

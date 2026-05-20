@@ -1,0 +1,31 @@
+{
+  "defended": true,
+  "ppo_checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/reports/ppo_policy_defended_swat_seed2.pt",
+  "seed": 2,
+  "n_trials": 30,
+  "n_rollouts_per_trial": 3,
+  "budget": 5,
+  "target_rotation": [
+    34,
+    6,
+    10,
+    5,
+    15,
+    23,
+    13,
+    49,
+    50,
+    11
+  ],
+  "n_detected_holdout": 14725,
+  "threshold": 4.669731380939488,
+  "n_oor_clipped": 11866900,
+  "ppo_degradation_mean": 0.1812997165756921,
+  "ppo_degradation_std": 0.9175359630075914,
+  "beta_degradation_mean": 0.031405089609324935,
+  "beta_degradation_std": 0.40823246315965134,
+  "ratio_ppo_over_beta": 5.772940591191939,
+  "ppo_flip_rate": 0.02222222222222222,
+  "beta_flip_rate": 0.0,
+  "n_eligible_for_flip": 30
+}

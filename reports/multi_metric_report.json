@@ -1,0 +1,81 @@
+{
+  "experiment": "H_PI_3 multi-metric BETA-baseline framework",
+  "authorized_by": "dec_01KQPGTTJZX1FE3H12Y7FSDYGX (Phase 0 closeout)",
+  "purpose": "Replace FTA as the gating attack-effectiveness metric. Establish a multi-metric BETA-baseline that Phase 1 RL policy will be compared against.",
+  "test_protocol": "BETA reimpl (saliency selector + eigenvector centrality prune + PGD with B=5, eps=0.1, alpha=0.01, 10 iters x 5 restarts) on 200 sampled detected (window, target=argmax) pairs. Per-sensor scores patched into test set; F1/PA-F1/AUC-PR recomputed over patched test set. Continuous target-score degradation reported per attack trial.",
+
+  "headline_metric": "target_score_degradation (continuous, metric-agnostic, smooth signal for Phase 1 PPO reward)",
+
+  "results": {
+    "gdn_wadi_seed0": {
+      "n_test_windows": 17180,
+      "n_anomaly_windows": 1001,
+      "n_detected_windows": 9453,
+      "n_attack_trials_completed": 200,
+      "clean": {"raw_F1_best": 0.2796, "PA_F1_best": 0.4736, "AUC_PR": 0.2358},
+      "attacked": {"raw_F1_best": 0.2763, "PA_F1_best": 0.4733, "AUC_PR": 0.2328},
+      "reduction": {"raw_F1": 0.0033, "PA_F1": 0.0003, "AUC_PR": 0.0030},
+      "target_score_degradation": {"mean": 18804, "median": 18900, "std": 1326, "min": 101, "max": 18934}
+    },
+    "topogdn_wadi_seed0": {
+      "n_test_windows": 17180,
+      "n_anomaly_windows": 1001,
+      "n_detected_windows": 9588,
+      "n_attack_trials_completed": 200,
+      "clean": {"raw_F1_best": 0.2879, "PA_F1_best": 0.4338, "AUC_PR": 0.1810},
+      "attacked": {"raw_F1_best": 0.2851, "PA_F1_best": 0.4335, "AUC_PR": 0.1810},
+      "reduction": {"raw_F1": 0.0028, "PA_F1": 0.0003, "AUC_PR": -0.0000},
+      "target_score_degradation": {"mean": 39135, "median": 38505, "std": 8650, "min": 101, "max": 121175}
+    }
+  },
+
+  "interpretation": {
+    "f1_reductions_small_by_design": "Each attack patches only the score row of one (window, sensor) pair into the test set. With 200 / 17180 = 1.16% sampling rate, the global F1 metrics over the full test set move only fractionally. This is expected; it would require ~10000+ trials to make the F1 reduction statistically large. The continuous target_score_degradation metric does not have this dilution issue.",
+    "target_score_degradation_mean_interpretation": "GDN's mean degradation 18804 reflects the chronic sensor-106 mispredict (clean ~18950 → ~40 after attack on sensor 106 trials, with smaller deltas on the few non-106 trials). TopoGDN's mean 39135 reflects sensor 106's higher amplitude in TopoGDN (~38500 → ~40). Both detectors are 'attackable' via PGD on this victim — when the attacker can choose sensor 106 as target, score collapse is reliable.",
+    "auc_pr_negative_for_topogdn": "TopoGDN's AUC-PR went up by 0.00003 under attack — within noise. The attack's impact on global ranking is below the AUC-PR noise floor at this sample size."
+  },
+
+  "phase1_reward_signal_validation": {
+    "metric_for_ppo": "f_zeta(X_clean)_u - f_zeta(X_tilde)_u (positive when attack succeeds)",
+    "gdn_signal_range": "[+101, +18934] (large dynamic range)",
+    "gdn_signal_std": 1326,
+    "topogdn_signal_range": "[+101, +121175] (very large dynamic range)",
+    "topogdn_signal_std": 8650,
+    "verdict": "Continuous degradation provides usable Phase 1 RL signal with O(10^4) scale and O(10^3) per-trial std. Reward will need normalization for stability (z-score or min-max within episode), but signal-to-noise is non-trivial."
+  },
+
+  "comparison_to_beta_published": {
+    "beta_target_topogdn_wadi": {
+      "no_attack_F1": 0.9048,
+      "attack_F1_at_B5": "implied ~0.5 from Table 4",
+      "no_attack_FTA": "not stated for WADI cell",
+      "attack_FTA_at_B5": "0.6418 quoted from BETA Table for SWaT, not WADI"
+    },
+    "our_topogdn_wadi": {
+      "no_attack_PA_F1_K10_oracle": 0.7071,
+      "attack_PA_F1_K10_oracle": "not directly comparable; multi-metric uses unsmoothed residuals"
+    },
+    "interpretation": "BETA's published numbers cannot be directly side-by-side'd with our multi-metric numbers due to (a) Path A/A' baseline F1 gap already accepted, (b) multi-metric uses unsmoothed residuals while Path A used GDN's smoothed_err_scores 4-step rolling mean. The multi-metric framework is internally consistent: clean and attacked numbers use the same scoring pipeline, so attack EFFECT (reduction + degradation) is meaningful within our pipeline."
+  },
+
+  "phase1_handoff": {
+    "use_continuous_target_score_degradation": "Phase 1 PPO reward should use clean_score(target) - attacked_score(target) directly. Sign convention: positive when attack succeeds. Magnitude varies per target: ~100 for non-pathological sensors, ~10000-40000 for sensor 106.",
+    "potential_signal_pathology_to_address_in_phase_1": "Sensor 106's chronic mispredict means easy reward gains by always attacking that sensor. Phase 1 may need to either (a) penalize repeatedly attacking the same sensor across windows, (b) restrict to non-106 targets during training, or (c) accept that the policy learns to exploit sensor 106 — which is itself a useful adversarial finding (BETA-style attacks easily succeed against this victim by targeting sensor 106).",
+    "supplementary_metrics": "Track raw F1 / PA-F1 / AUC-PR reduction over a periodic full-test-set patched evaluation. Won't provide per-step reward but tracks aggregate progress."
+  },
+
+  "limitations": [
+    "200 trials per (detector, seed) is sparse; F1 reduction below noise floor.",
+    "Unsmoothed residuals — diverges from Path A's GDN-evaluate-pipeline numbers (which use 4-step rolling mean) by ~20pp on absolute F1.",
+    "Single seed per detector. Phase 1 may want to evaluate against the full 9-10-seed ensemble for robustness.",
+    "Sensor 106 chronic mispredict dominates the degradation distribution; mean is biased high."
+  ],
+
+  "files": {
+    "framework": "scripts/multi_metric_eval.py",
+    "per_detector_reports": [
+      "reports/multi_metric_gdn_wadi_seed0.json",
+      "reports/multi_metric_topogdn_wadi_seed0.json"
+    ]
+  }
+}

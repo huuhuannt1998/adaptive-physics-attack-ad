@@ -1,0 +1,43 @@
+{
+  "experiment": "H_PI_1: PyG 1.6.0 vs PyG 2.5.3 BETA-reimpl FTA reproducibility",
+  "authorized_by": "dec_01KQNYRN1EGWPHCZEQPW923KHN",
+  "victim_detector": "gdn",
+  "victim_dataset": "wadi",
+  "seed": 0,
+  "test_protocol": "single seed 50 epochs, B=5 PGD attack on argmax target sensor, V_bar prune via eigenvector centrality",
+  "rosetta_x86_64_used": true,
+  "patches_applied_in_both_envs": [
+    "models/graph_layer.py:14 — node_dim=0 added to MessagePassing.__init__",
+    "models/graph_layer.py:110 — softmax(num_nodes=size_i) keyword form"
+  ],
+  "key_finding_pyg16_needs_same_patches": "PyG 1.6.0 has the same scatter/segment_csr API as 2.5.3 — these patches are NOT modernization-specific; they target a pre-2.x architectural quirk that GDN's GraphLayer's 3D message tensors expose.",
+  "results": {
+    "max_global_threshold_no_filter": {
+      "pyg_2_5": {"delta_FTA": 1.000, "threshold": 96.69},
+      "pyg_1_6": {"delta_FTA": 1.000, "threshold": 87.29}
+    },
+    "max_with_label_filter": {
+      "pyg_2_5": {"delta_FTA": 1.000, "threshold": 96.69},
+      "pyg_1_6": {"delta_FTA": 1.000, "threshold": 87.29}
+    },
+    "top3_sum_with_label_filter": {
+      "pyg_2_5": {"delta_FTA": 0.060, "threshold": 194.46},
+      "pyg_1_6": {"delta_FTA": 1.000, "threshold": 147.59}
+    },
+    "top10_sum_with_label_filter": {
+      "pyg_2_5": {"delta_FTA": 0.000, "threshold": 336.07},
+      "pyg_1_6": {"delta_FTA": 1.000, "threshold": 276.13}
+    },
+    "per_sensor_threshold_with_label_filter": {
+      "pyg_2_5": {"delta_FTA": 0.000, "threshold": "per-sensor median 6.91, max 96.69"},
+      "pyg_1_6": {"delta_FTA": 0.033, "threshold": "per-sensor median 6.76, max 87.29"}
+    }
+  },
+  "diagnostic_verdict": "Modernization DOES affect K-aggregation FTA behavior. Under PyG 2.5.3, perturbing 5 influencer sensors causes a 'compensation effect' where other sensors' standardized scores inflate ~14× (51 → 750), keeping top-K sums above threshold. Under PyG 1.6.0, this compensation is absent — perturbations propagate differently through the GAT attention, and the attack drives all sensors uniformly. Neither version produces BETA's reported 26.3% delta_FTA.",
+  "implication_for_paper": "We cannot attribute our reproduction failure solely to either modernization OR data; both contribute. PyG 2.5 K-aggregation methodology saturates at 0% (over-defended by compensation); PyG 1.6 saturates at 100% (under-defended). BETA's 26.3% sits between these, suggesting their actual evaluation uses a methodology axis we haven't identified (likely related to attack target selection or threshold convention rather than aggregation K).",
+  "next_steps_for_pi": [
+    "H_PI_3: drop FTA from head-to-head head-to-head; use multi-metric (raw F1, PA-F1@K=10, AUC-PR) instead",
+    "H_PI_4: SWaT-first pivot when iTrust DUA closes; SWaT may not have sensor-106-style chronic mispredict",
+    "Path R deferred: sensor 106 forensics could still close the gap but is now lower-priority given H_PI_1's compensation-effect finding"
+  ]
+}

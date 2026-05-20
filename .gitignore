@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === Writing / paper (NOT included in this repo) ===
+paper/
+paper_template/
+overleaf-example/
+paper_evaluation_review.md
+*.tex
+*.bib
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.lof
+*.lot
+*.run.xml
+*.bcf
+*-blx.bib
+texput.log
+ONBOARDING.md
+
+# Datasets (too large / restricted; users obtain via iTrust DUA)
+data/wadi/
+data/swat/
+data/msl/
+data/hai/
+data/raw/
+*.csv
+
+# Precomputed graph caches + compiled extensions (regenerable)
+*.o
+*.a
+*.so.*
+build/
+repos/TopoGDN/build/
+repos/TopoGDN/gated_edge_index.txt
+repos/GDN/build/
+repos/GDN_pyg1x/build/
+
+# Trained model checkpoints
+repos/GDN/pretrained/
+repos/TopoGDN/pretrained/
+runs/
+*.pt
+*.pth
+*.ckpt
+
+# Run logs
+*.log
+reports/_archive_oldconfig_bc/
+
+# Tooling / scratch
+.claude/
+.cursorignore
+.aider*
+anonymization_check.log
+
+# Cached BC datasets (large; regenerable from scripts)
+reports/bc_dataset_*.pt
+reports/bc_policy_*.pt
+reports/bc_*.log

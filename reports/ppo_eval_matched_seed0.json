@@ -1,0 +1,25 @@
+{
+  "ppo_checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/reports/ppo_policy_gdn_wadi_seed0.pt",
+  "seed": 0,
+  "n_trials": 30,
+  "n_rollouts_per_trial": 3,
+  "budget": 5,
+  "target_rotation": [
+    63,
+    45,
+    0,
+    8,
+    49,
+    50,
+    53,
+    54,
+    58,
+    93
+  ],
+  "exclude_sensor": 106,
+  "ppo_degradation_mean": 0.002171842101961375,
+  "ppo_degradation_std": 0.10799233820602788,
+  "beta_degradation_mean": -0.16395468952985653,
+  "beta_degradation_std": 0.4018124109138608,
+  "ratio_ppo_over_beta": -0.0132465994610412
+}

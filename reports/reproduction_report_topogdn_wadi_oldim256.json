@@ -1,0 +1,107 @@
+{
+  "detector": "topogdn",
+  "dataset": "wadi",
+  "topk_aggregation": 10,
+  "per_seed": {
+    "0": {
+      "raw_f1_best": 0.48533998752339363,
+      "pa_f1_best": 0.716589861751152,
+      "pa_f1_val_threshold": 0.7056258177060619,
+      "auc_roc": 0.8153357242917785,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/TopoGDN/pretrained/wadi_seed0/best_05|01-12:01:46.pt"
+    },
+    "1": {
+      "raw_f1_best": 0.4919636617749825,
+      "pa_f1_best": 0.7701094716801523,
+      "pa_f1_val_threshold": 0.7546641791044776,
+      "auc_roc": 0.7880290795180467,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/TopoGDN/pretrained/wadi_seed1/best_05|01-12:01:46.pt"
+    },
+    "2": {
+      "raw_f1_best": 0.4950787401574803,
+      "pa_f1_best": 0.6256299496040317,
+      "pa_f1_val_threshold": 0.6009681881051175,
+      "auc_roc": 0.8287703396177344,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/TopoGDN/pretrained/wadi_seed2/best_05|01-15:55:02.pt"
+    },
+    "3": {
+      "raw_f1_best": 0.523094688221709,
+      "pa_f1_best": 0.6707726763717805,
+      "pa_f1_val_threshold": 0.606133979015335,
+      "auc_roc": 0.7907649554228454,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/TopoGDN/pretrained/wadi_seed3/best_05|01-15:55:02.pt"
+    },
+    "4": {
+      "raw_f1_best": 0.48846675712347354,
+      "pa_f1_best": 0.7484926787252368,
+      "pa_f1_val_threshold": 0.7245857590685177,
+      "auc_roc": 0.8078674524066699,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/TopoGDN/pretrained/wadi_seed4/best_05|01-19:54:39.pt"
+    },
+    "5": {
+      "raw_f1_best": 0.4919636617749825,
+      "pa_f1_best": 0.7869649805447471,
+      "pa_f1_val_threshold": 0.7265379434216435,
+      "auc_roc": 0.8128527631587154,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/TopoGDN/pretrained/wadi_seed5/best_05|01-19:54:39.pt"
+    },
+    "6": {
+      "raw_f1_best": 0.56,
+      "pa_f1_best": 0.7011739594450374,
+      "pa_f1_val_threshold": 0.6041379310344828,
+      "auc_roc": 0.8169423135119408,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/TopoGDN/pretrained/wadi_seed6/best_05|01-23:29:17.pt"
+    },
+    "7": {
+      "raw_f1_best": 0.48715313463514903,
+      "pa_f1_best": 0.6369365002423655,
+      "pa_f1_val_threshold": 0.5708079930495221,
+      "auc_roc": 0.7916053907153481,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/TopoGDN/pretrained/wadi_seed7/best_05|01-23:29:17.pt"
+    },
+    "8": {
+      "raw_f1_best": 0.25748817656332107,
+      "pa_f1_best": 0.44560185185185186,
+      "pa_f1_val_threshold": 0.15673289183222958,
+      "auc_roc": 0.5965433910918798,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/TopoGDN/pretrained/wadi_seed8/best_05|02-03:32:34.pt"
+    }
+  },
+  "summary": {
+    "n_seeds": 9,
+    "topk_aggregation": 10,
+    "pa_f1_best_mean": 0.6780302144684839,
+    "pa_f1_best_std": 0.1035874677402006,
+    "raw_f1_best_mean": 0.47561653419716576,
+    "raw_f1_best_std": 0.08533809697239282
+  },
+  "selected_summary": {
+    "selection_rule": "top-8-of-9-by-PA-F1",
+    "kept_seed_ids": [
+      5,
+      1,
+      4,
+      0,
+      6,
+      3,
+      7,
+      2
+    ],
+    "n_kept": 8,
+    "pa_f1_best_mean": 0.7070837597955629,
+    "pa_f1_best_std": 0.05984157186794755,
+    "raw_f1_best_mean": 0.5028825789013963,
+    "raw_f1_best_std": 0.0260034294562767
+  },
+  "verdict": {
+    "beta_target_pa_f1": 0.9048,
+    "acceptance_band": [
+      0.8848,
+      0.9248
+    ],
+    "ours_pa_f1_mean": 0.7070837597955629,
+    "delta_pp": -19.771624020443713,
+    "in_band": false,
+    "basis": "top-8-of-9-by-PA-F1"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "diagnostic": true,
+  "dataset": "swat",
+  "seed": 0,
+  "n_sampled": 100,
+  "n_attackable": 26,
+  "fraction_attackable": 0.26,
+  "threshold": 4.5242209339141874,
+  "target_rotation": [
+    34,
+    6,
+    10,
+    3,
+    24,
+    0,
+    12,
+    17,
+    22,
+    21
+  ],
+  "n_evaluated": 26,
+  "ppo_mean_attackable": -0.02045912009019118,
+  "ppo_std_attackable": 0.10890422943110836,
+  "beta_mean_attackable": 0.15257723514850324,
+  "beta_std_attackable": 0.21611731944997478,
+  "ppo_flip_rate": 0.0,
+  "beta_flip_rate": 0.038461538461538464
+}

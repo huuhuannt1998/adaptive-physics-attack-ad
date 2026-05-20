@@ -1,0 +1,30 @@
+{
+  "variant": "full",
+  "seed": 0,
+  "dataset": "wadi",
+  "n_trials": 5,
+  "budget": 5,
+  "n_detected_holdout": 2300,
+  "target_rotation": [
+    106,
+    64,
+    39,
+    15,
+    63,
+    86,
+    5,
+    67,
+    68,
+    126
+  ],
+  "threshold": 5.480577726364156,
+  "beta_degradation_mean": 0.1413963794708252,
+  "beta_degradation_std": 0.1489501460573581,
+  "beta_degradation_per_trial": [
+    0.3990478515625,
+    0.0,
+    0.0,
+    0.10789895057678223,
+    0.20003509521484375
+  ]
+}

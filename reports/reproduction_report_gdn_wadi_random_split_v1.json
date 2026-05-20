@@ -1,0 +1,60 @@
+{
+  "detector": "gdn",
+  "dataset": "wadi",
+  "topk_aggregation": 10,
+  "per_seed": {
+    "0": {
+      "raw_f1_best": 0.5194462755438365,
+      "pa_f1_best": 0.7755610972568578,
+      "pa_f1_val_threshold": 0.7402816901408451,
+      "auc_roc": 0.8502388272460588,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed0/best_05|01-01:08:44.pt"
+    },
+    "1": {
+      "raw_f1_best": 0.5735115431348724,
+      "pa_f1_best": 0.759981211836543,
+      "pa_f1_val_threshold": 0.6908517350157729,
+      "auc_roc": 0.812909693681064,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed1/best_05|01-02:05:12.pt"
+    },
+    "2": {
+      "raw_f1_best": 0.38813474107591756,
+      "pa_f1_best": 0.6954901229966456,
+      "pa_f1_val_threshold": 0.6541970802919708,
+      "auc_roc": 0.7944532752617307,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed2/best_05|01-02:31:06.pt"
+    },
+    "3": {
+      "raw_f1_best": 0.4441477525589675,
+      "pa_f1_best": 0.6641192204814673,
+      "pa_f1_val_threshold": 0.6060885608856088,
+      "auc_roc": 0.8068701185704709,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed3/best_05|01-02:46:19.pt"
+    },
+    "4": {
+      "raw_f1_best": 0.5419198055893074,
+      "pa_f1_best": 0.7637795275590551,
+      "pa_f1_val_threshold": 0.7597911227154047,
+      "auc_roc": 0.8028426237215408,
+      "checkpoint": "/Users/huanbui/Desktop/adaptive-physics-attack-ad/repos/GDN/pretrained/wadi_seed4/best_05|01-03:00:58.pt"
+    }
+  },
+  "summary": {
+    "n_seeds": 5,
+    "topk_aggregation": 10,
+    "pa_f1_best_mean": 0.7317862360261138,
+    "pa_f1_best_std": 0.04906882577971659,
+    "raw_f1_best_mean": 0.49343202358058025,
+    "raw_f1_best_std": 0.07575782605509877
+  },
+  "verdict": {
+    "beta_target_pa_f1": 0.7896,
+    "acceptance_band": [
+      0.7696,
+      0.8096
+    ],
+    "ours_pa_f1_mean": 0.7317862360261138,
+    "delta_pp": -5.781376397388616,
+    "in_band": false
+  }
+}
