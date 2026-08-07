@@ -1,0 +1,16 @@
+{
+  "dataset": "wadi",
+  "seed": 2,
+  "k": 10,
+  "budget": 5,
+  "epsilon": 0.1,
+  "iters": 300,
+  "objective": "topk_aggregate_Sk",
+  "n_attacked": 40,
+  "clean_F1": 0.3799212598425197,
+  "attacked_F1": 0.3720472440944882,
+  "F1_reduction": 0.007874015748031482,
+  "window_ASR": 0.15,
+  "median_Sk_drop": 10.3131103515625,
+  "median_queries": 438.0
+}

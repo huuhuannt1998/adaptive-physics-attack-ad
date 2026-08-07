@@ -1,0 +1,16 @@
+{
+  "dataset": "swat",
+  "seed": 2,
+  "k": 10,
+  "budget": 5,
+  "epsilon": 0.1,
+  "iters": 300,
+  "objective": "topk_aggregate_Sk",
+  "n_attacked": 40,
+  "clean_F1": 0.7494356659142212,
+  "attacked_F1": 0.7492099322799097,
+  "F1_reduction": 0.00022573363431144244,
+  "window_ASR": 0.025,
+  "median_Sk_drop": 35.37371826171875,
+  "median_queries": 362.0
+}

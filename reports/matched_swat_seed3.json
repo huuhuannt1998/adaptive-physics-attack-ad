@@ -1,0 +1,19 @@
+{
+  "dataset": "swat",
+  "seed": 3,
+  "n_matched": 40,
+  "threshold": "f1opt",
+  "clean_F1": 0.7619876046536914,
+  "beta_target_sensor": {
+    "window_ASR": 0.0,
+    "F1_reduction": 0.0,
+    "median_Sk_reduction": 9.866119384765625,
+    "median_target_reduction": 9.851665496826172
+  },
+  "decision_level_topk": {
+    "window_ASR": 0.05,
+    "F1_reduction": 0.0004349244318799794,
+    "median_Sk_reduction": 28.19195556640625,
+    "median_target_reduction": 16.451488494873047
+  }
+}
