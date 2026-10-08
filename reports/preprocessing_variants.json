@@ -1,0 +1,48 @@
+{
+  "wadi": {
+    "minmax": {
+      "frac_oor_test_cells": 0.004876603966170895,
+      "max_drift_relative_to_train_range": 527.0763652493109,
+      "max_drift_native_units": 527.0763652493109,
+      "worst_sensor_index": 106,
+      "worst_sensor_max_rel_drift": 527.0763652493109
+    },
+    "zscore": {
+      "frac_oor_test_cells": 0.004876603966170895,
+      "max_drift_relative_to_train_range": 527.0763652493109,
+      "max_drift_native_units": 60331.51000238239,
+      "worst_sensor_index": 106,
+      "worst_sensor_max_rel_drift": 527.0763652493109
+    },
+    "robust": {
+      "frac_oor_test_cells": 0.004876603966170895,
+      "max_drift_relative_to_train_range": 527.0763652493109,
+      "max_drift_native_units": 60293.91280410729,
+      "worst_sensor_index": 106,
+      "worst_sensor_max_rel_drift": 527.0763652493109
+    }
+  },
+  "swat": {
+    "minmax": {
+      "frac_oor_test_cells": 0.10122024404880976,
+      "max_drift_relative_to_train_range": 113.2792438884177,
+      "max_drift_native_units": 113.2792438884177,
+      "worst_sensor_index": 37,
+      "worst_sensor_max_rel_drift": 113.2792438884177
+    },
+    "zscore": {
+      "frac_oor_test_cells": 0.10122024404880976,
+      "max_drift_relative_to_train_range": 113.27924388841771,
+      "max_drift_native_units": 507.3347719430973,
+      "worst_sensor_index": 37,
+      "worst_sensor_max_rel_drift": 113.27924388841771
+    },
+    "robust": {
+      "frac_oor_test_cells": 0.10122024404880976,
+      "max_drift_relative_to_train_range": 113.2792438884177,
+      "max_drift_native_units": 929.5074729379448,
+      "worst_sensor_index": 37,
+      "worst_sensor_max_rel_drift": 113.2792438884177
+    }
+  }
+}

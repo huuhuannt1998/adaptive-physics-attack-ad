@@ -1,0 +1,53 @@
+{
+  "description": "Gradient-free black-box attacker F1-impact on defended GDN (paper Section VII)",
+  "attackers": {
+    "random_search_wadi": {
+      "mean_f1_reduction": 0.0,
+      "per_seed_f1_reduction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean_cont_deg": 8.839403018951417,
+      "n_seeds": 5
+    },
+    "spsa_wadi": {
+      "mean_f1_reduction": 0.0,
+      "per_seed_f1_reduction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean_cont_deg": 6.385722875595094,
+      "n_seeds": 5
+    },
+    "random_search_swat": {
+      "mean_f1_reduction": 0.0,
+      "per_seed_f1_reduction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean_cont_deg": 5.9138725471496585,
+      "n_seeds": 5
+    },
+    "spsa_swat": {
+      "mean_f1_reduction": 0.0,
+      "per_seed_f1_reduction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean_cont_deg": 4.674705867767334,
+      "n_seeds": 5
+    }
+  }
+}

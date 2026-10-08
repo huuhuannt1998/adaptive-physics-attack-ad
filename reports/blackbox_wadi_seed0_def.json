@@ -1,0 +1,39 @@
+{
+  "seed": 0,
+  "dataset": "wadi",
+  "arch": "GDN",
+  "defended": true,
+  "epsilon": 0.1,
+  "budget": 5,
+  "n_trials": 10,
+  "threshold": 87.00192260742188,
+  "attackers": {
+    "beta": {
+      "mean_deg": 0.0,
+      "median_deg": 0.0,
+      "std_deg": 0.0,
+      "asr": 0.0,
+      "flip_rate": 0.0,
+      "mean_queries": 50.0,
+      "n": 10
+    },
+    "random_search": {
+      "mean_deg": 8.738677215576171,
+      "median_deg": 8.617408752441406,
+      "std_deg": 0.4531567399988996,
+      "asr": 1.0,
+      "flip_rate": 1.0,
+      "mean_queries": 327.0,
+      "n": 10
+    },
+    "spsa": {
+      "mean_deg": 4.820508575439453,
+      "median_deg": 4.765312194824219,
+      "std_deg": 0.16029446917272686,
+      "asr": 1.0,
+      "flip_rate": 0.6,
+      "mean_queries": 577.0,
+      "n": 10
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "detector": "topogdn",
+  "seed": 1,
+  "n_attack_trials_sampled": 1,
+  "n_attack_trials_completed": 1,
+  "budget": 5,
+  "n_test_windows": 17180,
+  "n_anomaly_windows": 1001,
+  "n_detected_windows": 1,
+  "clean": {
+    "raw_F1_best": 0.3974358974358974,
+    "PA_F1_best": 0.6604264170566823,
+    "AUC_PR": 0.26051482897067063
+  },
+  "attacked": {
+    "raw_F1_best": 0.3974358974358974,
+    "PA_F1_best": 0.6604264170566823,
+    "AUC_PR": 0.26051482897067063
+  },
+  "reduction": {
+    "raw_F1": 0.0,
+    "PA_F1": 0.0,
+    "AUC_PR": 0.0
+  },
+  "target_score_degradation": {
+    "mean": 38.47010803222656,
+    "median": 38.47010803222656,
+    "std": 0.0,
+    "min": 38.47010803222656,
+    "max": 38.47010803222656
+  }
+}

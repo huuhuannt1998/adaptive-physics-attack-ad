@@ -1,0 +1,37 @@
+{
+  "detector": "gdn",
+  "seed": 0,
+  "attacker": "beta",
+  "n_attack_trials_sampled": 50,
+  "n_attack_trials_completed": 50,
+  "budget": 5,
+  "n_test_windows": 44891,
+  "n_anomaly_windows": 5493,
+  "n_detected_windows": 3494,
+  "clean": {
+    "raw_F1_best": 0.7691799669785361,
+    "PA_F1_best": 0.8545057562524812,
+    "AUC_PR": 0.7550276543256922,
+    "raw_F1_threshold": 244.13958740234375,
+    "PA_F1_threshold": 204.31655883789062
+  },
+  "attacked": {
+    "raw_F1_best": 0.7689598238855256,
+    "PA_F1_best": 0.8544209586186365,
+    "AUC_PR": 0.7548318926163007,
+    "raw_F1_threshold": 244.1307373046875,
+    "PA_F1_threshold": 204.16452026367188
+  },
+  "reduction": {
+    "raw_F1": 0.00022014309301043866,
+    "PA_F1": 8.479763384461325e-05,
+    "AUC_PR": 0.0001957617093915065
+  },
+  "target_score_degradation": {
+    "mean": 137.07214248657226,
+    "median": 165.5705108642578,
+    "std": 62.138472613145616,
+    "min": 0.02884674072265625,
+    "max": 176.11544799804688
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "release": "hai-23.05",
+  "seed": 0,
+  "oor_precursor": {
+    "frac_oor_test_cells": 0.007368511431655382,
+    "max_oor_cell_value": 4.7802385602678745,
+    "max_drift_beyond_unit_range": 41.113351004464434,
+    "n_sensors": 86
+  },
+  "lstm_ood_clamp": {
+    "n_oor_windows": 1064,
+    "epb_mean": 0.9926888067082719,
+    "epb_max": 41.11334991455078,
+    "ood_clamp_deg_undef_mean": 1.6375815583589046,
+    "ood_clamp_deg_undef_median": 0.0019110441207885742,
+    "ood_clamp_deg_defended_mean": 0.0
+  }
+}

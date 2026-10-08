@@ -1,0 +1,51 @@
+{
+  "dataset": "wadi",
+  "seed": 0,
+  "k": 10,
+  "fpr_target": 0.05,
+  "thr_clean": 18984.5123046875,
+  "thr_clip": 74.3283508300781,
+  "frac_windows_oor": 0.5945285215366706,
+  "slices": {
+    "benign_inrange": {
+      "clean": {
+        "n": 6664,
+        "fpr": 0.0
+      },
+      "clipped": {
+        "n": 6664,
+        "fpr": 0.009153661464585834
+      }
+    },
+    "benign_oor": {
+      "clean": {
+        "n": 9515,
+        "fpr": 0.08502364687335785
+      },
+      "clipped": {
+        "n": 9515,
+        "fpr": 0.07861271676300578
+      }
+    },
+    "anom_inrange": {
+      "clean": {
+        "n": 302,
+        "recall": 0.0
+      },
+      "clipped": {
+        "n": 302,
+        "recall": 0.006622516556291391
+      }
+    },
+    "anom_oor": {
+      "clean": {
+        "n": 699,
+        "recall": 0.3133047210300429
+      },
+      "clipped": {
+        "n": 699,
+        "recall": 0.463519313304721
+      }
+    }
+  }
+}

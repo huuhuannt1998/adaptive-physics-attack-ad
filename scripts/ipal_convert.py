@@ -144,6 +144,14 @@ def main():
                         help="PH-feature magnitude clip (TopoGDN-only): "
                              "register a forward-hook on TopologyLayer to clamp "
                              "topoOut to [-c, c]. Phase 4.2 PH-regularization.")
+    parser.add_argument("--hk-defense", action="store_true",
+                        help="(TopoGDN only) Install HK PI-stability defense on TopologyLayer "
+                             "instances (exploratory; not part of the IPCCC 2026 release).")
+    parser.add_argument("--hk-refs", default=None,
+                        help="Path to clean PI reference .pt; default: reports/hk_refs/{dataset}_seed{seed}.pt")
+    parser.add_argument("--hk-projection-radius", type=float, default=2.0)
+    parser.add_argument("--hk-sigma", type=float, default=0.05)
+    parser.add_argument("--hk-persistence-clamp", type=float, default=1.0)
     args = parser.parse_args()
 
     defended = args.scenario.endswith("_defended")
@@ -169,6 +177,31 @@ def main():
                 mod.register_forward_hook(_topo_clip_hook)
                 n_hooks += 1
         print(f"[ph-reg] magnitude-clip={_clip} on {n_hooks} TopologyLayer instance(s)")
+
+    # Optional HK PI-stability defense via topoPooling.forward patch (exploratory)
+    if args.hk_defense:
+        if not is_topo:
+            raise ValueError("--hk-defense requires --arch TopoGDN")
+        from defenses.hk_stability import HKConfig, HKStabilityWrapper
+        refs_path = args.hk_refs or f"reports/hk_refs/{args.dataset}_seed{args.seed}.pt"
+        refs_path_full = refs_path if Path(refs_path).is_absolute() else str(PROJECT_ROOT / refs_path)
+        print(f"[hk] loading reference PIs from {refs_path_full}")
+        refs = torch.load(refs_path_full, weights_only=False, map_location="cpu")
+        ref_p0 = refs["ref_p0"]
+        hk_cfg = HKConfig(
+            grid_size=ref_p0.shape[-1],
+            sigma=args.hk_sigma,
+            persistence_clamp=args.hk_persistence_clamp,
+            projection_radius=args.hk_projection_radius,
+        )
+        wrapper = HKStabilityWrapper(model, clean_references=ref_p0, config=hk_cfg)
+        n_patched = 0
+        for _name, mod in model.named_modules():
+            if mod.__class__.__name__ == "TopologyLayer":
+                wrapper._install_hook(mod)
+                n_patched += 1
+        print(f"[hk] patched {n_patched} TopologyLayer instance(s) "
+              f"(radius={hk_cfg.projection_radius}, sigma={hk_cfg.sigma})")
     test_loader = m.test_dataloader
     val_loader = m.val_dataloader
 

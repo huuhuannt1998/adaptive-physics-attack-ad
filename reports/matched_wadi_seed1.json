@@ -1,0 +1,19 @@
+{
+  "dataset": "wadi",
+  "seed": 1,
+  "n_matched": 40,
+  "threshold": "f1opt",
+  "clean_F1": 0.5040548970679976,
+  "beta_target_sensor": {
+    "window_ASR": 0.0,
+    "F1_reduction": 0.0,
+    "median_Sk_reduction": -239.70665740966797,
+    "median_target_reduction": 4.762500762939453
+  },
+  "decision_level_topk": {
+    "window_ASR": 0.2,
+    "F1_reduction": 0.0034473636536597185,
+    "median_Sk_reduction": 8.943405151367188,
+    "median_target_reduction": 4.580284118652344
+  }
+}

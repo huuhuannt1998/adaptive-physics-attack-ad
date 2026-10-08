@@ -1,0 +1,21 @@
+{
+  "dataset": "wadi",
+  "seed": 0,
+  "gdn": {
+    "epb_mean": 161.71602738883905,
+    "epb_max": 267.2903137207031,
+    "ood_clamp_deg_undef_mean": 11414.325458843097,
+    "ood_clamp_deg_undef_median": 18877.99777984619,
+    "ood_clamp_deg_defended_mean": 0.0,
+    "n_oor_windows": 2000
+  },
+  "lstm": {
+    "epb_mean": 161.71602738883905,
+    "epb_max": 267.2903137207031,
+    "ood_clamp_deg_undef_mean": 12140.402797671963,
+    "ood_clamp_deg_undef_median": 20078.20629119873,
+    "ood_clamp_deg_defended_mean": 0.0,
+    "n_oor_windows": 2000
+  },
+  "lstm_clean_f1": 0.26427962489343565
+}

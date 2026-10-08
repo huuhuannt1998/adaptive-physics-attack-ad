@@ -1,0 +1,34 @@
+{
+  "dataset": "wadi",
+  "detector": "gdn",
+  "seed": 3,
+  "epsilon": 0.1,
+  "budget": 5,
+  "n_trials": 100,
+  "T_total": {
+    "median": 1.9513814449310303,
+    "p95": 267.29229736328125,
+    "max": 267.29229736328125,
+    "mean": 126.10237621769309,
+    "frac_gt_eps": 0.79
+  },
+  "A_attack": {
+    "median": 0.09977160394191742,
+    "p95": 0.09998723082244396,
+    "max": 0.09999803453683853,
+    "mean": 0.09972715511918068,
+    "frac_gt_eps": 0.0
+  },
+  "M_path": {
+    "median": 1.9513814449310303,
+    "p95": 267.29229736328125,
+    "max": 267.29229736328125,
+    "mean": 126.08143791913986,
+    "frac_gt_eps": 0.79
+  },
+  "dominant_coord_is_path_fraction": 0.79,
+  "dominant_coord_path_share_median": 0.9999999999994875,
+  "spearman_T_vs_scoredeg": 0.8310852562662587,
+  "spearman_A_vs_scoredeg": -0.04388045104092831,
+  "spearman_M_vs_scoredeg": 0.841472926542897
+}

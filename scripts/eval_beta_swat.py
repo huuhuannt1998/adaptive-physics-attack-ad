@@ -25,6 +25,36 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from attacks.beta import BETAAttack, BETAConfig  # noqa: E402
 
 
+def _epb_summary(per_trial_epb, epsilon_nominal):
+    """Robust EPB summary that handles empty trial lists (e.g., when
+    strict thresholds produce 0 detected windows under HK defense)."""
+    n = len(per_trial_epb)
+    if n == 0:
+        return {
+            "epsilon_nominal": float(epsilon_nominal),
+            "n_trials": 0,
+            "epsilon_eff_input_mean": None,
+            "epsilon_eff_input_median": None,
+            "epsilon_eff_input_max": None,
+            "epsilon_eff_input_p95": None,
+            "epb_ratio_mean": None,
+            "epb_ratio_max": None,
+            "per_trial": [],
+        }
+    vals = [t["epsilon_eff_input"] for t in per_trial_epb]
+    return {
+        "epsilon_nominal": float(epsilon_nominal),
+        "n_trials": n,
+        "epsilon_eff_input_mean": float(np.nanmean(vals)),
+        "epsilon_eff_input_median": float(np.nanmedian(vals)),
+        "epsilon_eff_input_max": float(np.nanmax(vals)),
+        "epsilon_eff_input_p95": float(np.nanpercentile(vals, 95)),
+        "epb_ratio_mean": float(np.nanmean(vals) / float(epsilon_nominal)),
+        "epb_ratio_max": float(np.nanmax(vals) / float(epsilon_nominal)),
+        "per_trial": per_trial_epb,
+    }
+
+
 def setup_victim(seed: int, dataset: str = "swat", arch: str = "GDN"):
     repo_name = "TopoGDN" if arch.lower() == "topogdn" else "GDN"
     repo = PROJECT_ROOT / f"repos/{repo_name}"
@@ -88,10 +118,42 @@ def main():
                         help="Pre-clip test inputs to [0,1] before BETA (defended-detector eval)")
     parser.add_argument("--threshold-percentile", type=float, default=100.0,
                         help="Percentile of val score distribution for threshold (100=max-of-val)")
+    parser.add_argument("--hk-defense", action="store_true",
+                        help="(TopoGDN only) Install HK PI-stability defense on TopologyLayer "
+                             "instances. Requires --hk-refs.")
+    parser.add_argument("--hk-refs", default=None,
+                        help="Path to clean PI reference .pt (default: reports/hk_refs/{dataset}_seed{seed}.pt)")
+    parser.add_argument("--hk-projection-radius", type=float, default=2.0)
+    parser.add_argument("--hk-sigma", type=float, default=0.05)
+    parser.add_argument("--hk-persistence-clamp", type=float, default=1.0)
     args = parser.parse_args()
 
     print(f"[setup] loading {args.arch}-{args.dataset} seed {args.seed}")
     m = setup_victim(seed=args.seed, dataset=args.dataset, arch=args.arch)
+
+    if args.hk_defense:
+        if args.arch.lower() != "topogdn":
+            raise ValueError("--hk-defense requires --arch TopoGDN")
+        from defenses.hk_stability import HKConfig, HKStabilityWrapper
+        refs_path = args.hk_refs or f"reports/hk_refs/{args.dataset}_seed{args.seed}.pt"
+        refs_path_full = refs_path if Path(refs_path).is_absolute() else str(PROJECT_ROOT / refs_path)
+        print(f"[hk] loading reference PIs from {refs_path_full}")
+        refs = torch.load(refs_path_full, weights_only=False, map_location="cpu")
+        ref_p0 = refs["ref_p0"]
+        hk_cfg = HKConfig(
+            grid_size=ref_p0.shape[-1],
+            sigma=args.hk_sigma,
+            persistence_clamp=args.hk_persistence_clamp,
+            projection_radius=args.hk_projection_radius,
+        )
+        wrapper = HKStabilityWrapper(m.model, clean_references=ref_p0, config=hk_cfg)
+        n_patched = 0
+        for _name, mod in m.model.named_modules():
+            if mod.__class__.__name__ == "TopologyLayer":
+                wrapper._install_hook(mod)
+                n_patched += 1
+        print(f"[hk] patched {n_patched} TopologyLayer instance(s)  "
+              f"(radius={hk_cfg.projection_radius}, sigma={hk_cfg.sigma}, clamp={hk_cfg.persistence_clamp})")
     model = m.model
     test_loader = m.test_dataloader
     val_loader = m.val_dataloader
@@ -192,19 +254,44 @@ def main():
 
     per_target_degradations = defaultdict(list)
     all_degradations = []
+    per_trial_epb = []  # per-trial Effective Perturbation Budget log
     for trial_i, (w_idx, target_idx) in enumerate(sample):
         X = flat_xs[w_idx:w_idx + 1].clone()
         with torch.no_grad():
             clean_score = surrogate_query(X)[0, target_idx].item()
+        attacked_score = float("nan")
+        eps_eff_input = float("nan")
+        x_target_max = float("nan")
+        x_global_max = float("nan")
         try:
             X_pert, _ = beta_attack.attack(X.clone(), target_idx, args.budget)
             with torch.no_grad():
                 attacked_score = surrogate_query(X_pert)[0, target_idx].item()
+                eps_eff_input = float((X_pert - X).abs().max().item())
+                # X shape: (B, n_sensors, W); target_idx is sensor index.
+                x_target_max = float(X[:, target_idx, :].abs().max().item())
+                x_global_max = float(X.abs().max().item())
             deg = clean_score - attacked_score
-        except Exception:
+        except Exception as e:
+            if trial_i < 3:
+                import traceback
+                print(f"  [trial {trial_i}] BETA attack raised: {type(e).__name__}: {e}")
+                traceback.print_exc()
             deg = 0.0
         per_target_degradations[target_idx].append(deg)
         all_degradations.append(deg)
+        per_trial_epb.append({
+            "trial": trial_i,
+            "w_idx": int(w_idx),
+            "target_idx": int(target_idx),
+            "epsilon_nominal": float(beta_cfg.epsilon),
+            "epsilon_eff_input": eps_eff_input,
+            "x_target_max": x_target_max,
+            "x_global_max": x_global_max,
+            "clean_score": float(clean_score),
+            "attacked_score": float(attacked_score) if 'attacked_score' in locals() else float("nan"),
+            "degradation": float(deg),
+        })
         if (trial_i + 1) % 10 == 0:
             print(f"  trial {trial_i+1}/{len(sample)}  mean={np.mean(all_degradations):+.3f}  "
                   f"unique targets={len(per_target_degradations)}")
@@ -229,6 +316,7 @@ def main():
         "all_degradations_std": float(np.std(all_degradations)),
         "per_target_mean": {int(k): float(np.mean(v)) for k, v in per_target_degradations.items()},
         "per_target_n": {int(k): len(v) for k, v in per_target_degradations.items()},
+        "epb": _epb_summary(per_trial_epb, beta_cfg.epsilon),
     }
     out_path = PROJECT_ROOT / args.out if not Path(args.out).is_absolute() else Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)

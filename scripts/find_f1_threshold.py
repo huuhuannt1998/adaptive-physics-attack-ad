@@ -59,12 +59,41 @@ def main():
     parser.add_argument("--dataset", default="wadi")
     parser.add_argument("--defended", action="store_true")
     parser.add_argument("--arch", default="GDN", choices=["GDN", "TopoGDN"])
+    parser.add_argument("--hk-defense", action="store_true",
+                        help="(TopoGDN only) Install HK PI-stability defense.")
+    parser.add_argument("--hk-refs", default=None)
+    parser.add_argument("--hk-projection-radius", type=float, default=2.0)
+    parser.add_argument("--hk-sigma", type=float, default=0.05)
+    parser.add_argument("--hk-persistence-clamp", type=float, default=1.0)
     args = parser.parse_args()
 
-    print(f"[setup] {args.arch}-{args.dataset} seed {args.seed} defended={args.defended}")
+    print(f"[setup] {args.arch}-{args.dataset} seed {args.seed} defended={args.defended} hk={args.hk_defense}")
     m = setup_gdn_victim(seed=args.seed, dataset=args.dataset, arch=args.arch)
     model = m.model
     is_topo = args.arch.lower() == "topogdn"
+
+    if args.hk_defense:
+        if not is_topo:
+            raise ValueError("--hk-defense requires --arch TopoGDN")
+        from defenses.hk_stability import HKConfig, HKStabilityWrapper
+        refs_path = args.hk_refs or f"reports/hk_refs/{args.dataset}_seed{args.seed}.pt"
+        refs_path_full = refs_path if Path(refs_path).is_absolute() else str(PROJECT_ROOT / refs_path)
+        print(f"[hk] loading reference PIs from {refs_path_full}")
+        refs = torch.load(refs_path_full, weights_only=False, map_location="cpu")
+        ref_p0 = refs["ref_p0"]
+        hk_cfg = HKConfig(
+            grid_size=ref_p0.shape[-1],
+            sigma=args.hk_sigma,
+            persistence_clamp=args.hk_persistence_clamp,
+            projection_radius=args.hk_projection_radius,
+        )
+        wrapper = HKStabilityWrapper(model, clean_references=ref_p0, config=hk_cfg)
+        n_patched = 0
+        for _name, mod in model.named_modules():
+            if mod.__class__.__name__ == "TopologyLayer":
+                wrapper._install_hook(mod)
+                n_patched += 1
+        print(f"[hk] patched {n_patched} TopologyLayer instance(s)")
     def model_fwd(X, ei=None):
         if is_topo:
             out = model(X)
@@ -76,13 +105,24 @@ def main():
     from scipy.stats import iqr as scipy_iqr
     val_deltas = []
     with torch.no_grad():
-        for batch in val_loader:
+        for bi, batch in enumerate(val_loader):
             x, y, _, ei = batch
             xf, yf = x.float(), y.float()
             if args.defended:
                 xf = xf.clamp(0, 1); yf = yf.clamp(0, 1)
             f = model_fwd(xf, ei.float())
-            val_deltas.append((f - yf).abs().cpu().numpy())
+            if bi == 0:
+                print(f"  [debug] f.shape={tuple(f.shape)} f.dtype={f.dtype} yf.dtype={yf.dtype}")
+            d = (f - yf).abs()
+            if bi == 0:
+                print(f"  [debug] (f-yf).abs().dtype={d.dtype}")
+            try:
+                arr = d.detach().float().cpu().numpy()
+            except Exception as e:
+                # Fallback: route through Python list to bypass torch->numpy interop quirk.
+                print(f"  [warn] .numpy() failed at batch {bi}: {type(e).__name__}: {e}; falling back to .tolist()")
+                arr = np.asarray(d.detach().float().cpu().tolist(), dtype=np.float32)
+            val_deltas.append(arr)
     val_deltas = np.concatenate(val_deltas, axis=0)
     median = torch.from_numpy(np.median(val_deltas, axis=0)).float()
     iqr_v = torch.from_numpy(scipy_iqr(val_deltas, axis=0)).float()
@@ -108,7 +148,7 @@ def main():
             target_step = X[..., -1]
             delta = (forecast - target_step).abs()
             s = (delta - median) / (iqr_v.abs() + EPS)
-            mx = s.max(dim=1)[0].cpu().numpy()
+            mx = s.max(dim=1)[0].detach().float().cpu().numpy()
             scores_max[start:start + len(mx)] = mx
 
     # Sweep thresholds

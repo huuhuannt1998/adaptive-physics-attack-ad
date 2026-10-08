@@ -1,0 +1,26 @@
+{
+  "seed": 0,
+  "dataset": "wadi",
+  "arch": "TopoGDN",
+  "n_trials": 0,
+  "n_unique_targets": 0,
+  "n_oor_cells": 0,
+  "out_of_unit_sensors": [],
+  "threshold": 100.0,
+  "n_detected": 0,
+  "all_degradations_mean": NaN,
+  "all_degradations_std": NaN,
+  "per_target_mean": {},
+  "per_target_n": {},
+  "epb": {
+    "epsilon_nominal": 0.1,
+    "n_trials": 0,
+    "epsilon_eff_input_mean": null,
+    "epsilon_eff_input_median": null,
+    "epsilon_eff_input_max": null,
+    "epsilon_eff_input_p95": null,
+    "epb_ratio_mean": null,
+    "epb_ratio_max": null,
+    "per_trial": []
+  }
+}

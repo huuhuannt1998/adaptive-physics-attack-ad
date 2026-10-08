@@ -1,0 +1,42 @@
+{
+  "dataset": "swat",
+  "seed": 0,
+  "k": 10,
+  "budget": 5,
+  "epsilon": 0.1,
+  "pipelines": {
+    "original": {
+      "clean_F1": 0.7691799669785361,
+      "attacked_F1": 0.7687396807925151,
+      "F1_reduction": 0.00044028618602098835,
+      "window_ASR": 0.025,
+      "T_median": 2.8202669620513916,
+      "A_median": 0.09965646266937256,
+      "M_median": 2.8202669620513916,
+      "n_attacked": 40,
+      "thr": 244.13958740234375
+    },
+    "clip": {
+      "clean_F1": 0.7483069977426636,
+      "attacked_F1": 0.7483069977426636,
+      "F1_reduction": 0.0,
+      "window_ASR": 0.0,
+      "T_median": 0.09968508780002594,
+      "A_median": 0.09968508780002594,
+      "M_median": 0.0,
+      "n_attacked": 40,
+      "thr": 219.12588500976562
+    },
+    "center": {
+      "clean_F1": 0.7691799669785361,
+      "attacked_F1": 0.7691799669785361,
+      "F1_reduction": 0.0,
+      "window_ASR": 0.0,
+      "T_median": 0.09987455978989601,
+      "A_median": 0.09987455978989601,
+      "M_median": 0.0,
+      "n_attacked": 40,
+      "thr": 244.13958740234375
+    }
+  }
+}

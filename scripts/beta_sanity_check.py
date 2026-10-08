@@ -1,7 +1,7 @@
 """
 Single-cell BETA reproduction sanity check on TopoGDN-WADI seed 0.
 
-Per Brain (jrn_01KQNCCCHBPQC36W4QV1B32132): we target the FTA *delta* (clean → B=5),
+We target the FTA *delta* (clean → B=5),
 not the absolute number, since our TopoGDN baseline is already shifted (PA-F1=0.71 vs
 BETA 0.90). Acceptance: our FTA delta within ±3pp of BETA's reported delta.
 
@@ -33,23 +33,29 @@ TOPOGDN_REPO = PROJECT_ROOT / "repos/TopoGDN"
 sys.path.insert(0, str(PROJECT_ROOT))
 
 
-def setup_victim(detector: str, seed: int = 0):
-    """Use {GDN, TopoGDN, gdn_pyg1x}'s Main class with load_model_path to get a fully wired victim."""
+def setup_victim(detector: str, seed: int = 0, dataset: str = "wadi"):
+    """Use {GDN, TopoGDN, gdn_pyg1x}'s Main class with load_model_path to get a fully wired victim.
+
+    dataset: "wadi" (default, preserves prior behavior) or "swat". The GDN
+    architecture config (dim, top-k, inter-dim) is dataset-specific and must
+    match the checkpoint, or the state-dict load fails.
+    """
     if detector == "topogdn":
         repo = TOPOGDN_REPO
-        ckpt_dir = repo / f"pretrained/wadi_seed{seed}_oldim256"
+        suffix = "_oldim256" if dataset == "wadi" else ""
+        ckpt_dir = repo / f"pretrained/{dataset}_seed{seed}{suffix}"
         train_config_extra = {"use_tcn": True, "use_topo": True, "model": "GDN"}
-        save_path = f"wadi_seed{seed}_oldim256"
+        save_path = f"{dataset}_seed{seed}{suffix}"
     elif detector == "gdn":
         repo = PROJECT_ROOT / "repos/GDN"
-        ckpt_dir = repo / f"pretrained/wadi_seed{seed}"
+        ckpt_dir = repo / f"pretrained/{dataset}_seed{seed}"
         train_config_extra = {}
-        save_path = f"wadi_seed{seed}"
+        save_path = f"{dataset}_seed{seed}"
     elif detector == "gdn_pyg1x":
         repo = PROJECT_ROOT / "repos/GDN_pyg1x"
-        ckpt_dir = repo / f"pretrained/wadi_pyg1x_seed{seed}"
+        ckpt_dir = repo / f"pretrained/{dataset}_pyg1x_seed{seed}"
         train_config_extra = {}
-        save_path = f"wadi_pyg1x_seed{seed}"
+        save_path = f"{dataset}_pyg1x_seed{seed}"
     else:
         raise ValueError(detector)
 
@@ -64,20 +70,27 @@ def setup_victim(detector: str, seed: int = 0):
         raise FileNotFoundError(f"No checkpoint in {ckpt_dir}")
     ckpt_path = "./" + str(candidates[-1].relative_to(repo).as_posix())
 
+    # Dataset-specific GDN architecture config; must match the checkpoint.
+    if dataset == "swat":
+        dim, inter_dim, topk = 64, 128, 15
+    else:
+        dim, inter_dim, topk = 128, 256, 30
     train_config = {
-        "batch": 32, "epoch": 50, "slide_win": 100, "dim": 128,
+        "batch": 32, "epoch": 50, "slide_win": 100, "dim": dim,
         "slide_stride": 10, "comment": "beta_sanity", "seed": seed,
-        "out_layer_num": 1, "out_layer_inter_dim": 256,
-        "decay": 0.0, "val_ratio": 0.1, "topk": 30,
+        "out_layer_num": 1, "out_layer_inter_dim": inter_dim,
+        "decay": 0.0, "val_ratio": 0.1, "topk": topk,
         **train_config_extra,
     }
     env_config = {
         "save_path": save_path,
-        "dataset": "wadi",
+        "dataset": dataset,
         "report": "best",
         "device": "cpu",
         "load_model_path": ckpt_path,
     }
+    if "main" in sys.modules:
+        del sys.modules["main"]
 
     from main import Main
     m = Main(train_config, env_config, debug=False)
@@ -232,7 +245,7 @@ def main():
     cfg = BETAConfig(epsilon=0.1, pgd_alpha=0.01, pgd_iters=10, pgd_restarts=5, candidate_k=32)
     attack = BETAAttack(victim_forward, learned_edge_index_fn, num_nodes=n_sensors, config=cfg)
 
-    # BETA's FTA convention (per Brain framing): rate at which DETECTED anomalies
+    # BETA's FTA convention: rate at which DETECTED anomalies
     # remain detected after attack. We sample windows where model already detects an
     # anomaly (max sensor score > threshold), use that argmax sensor as the target,
     # and measure attack success = the score gets pushed below threshold.
@@ -340,7 +353,7 @@ def main():
     n = len(score_deltas)
     attacked_FTA = survived / n if n else None
     attack_success_rate = (1 - attacked_FTA) if attacked_FTA is not None else None
-    # Brain's adjusted target: BETA TopoGDN-WADI FTA delta (clean → B=5) reportedly -26.3pp.
+    # Adjusted target: BETA TopoGDN-WADI FTA delta (clean → B=5) reportedly -26.3pp.
     # Our delta = clean_FTA - attacked_FTA = 1.0 - attacked_FTA = attack_success_rate.
 
     result = {
@@ -353,7 +366,7 @@ def main():
         "clean_FTA": 1.0,
         "attacked_FTA": attacked_FTA,
         "delta_FTA": attack_success_rate,  # = clean_FTA - attacked_FTA
-        "beta_target_delta_topogdn_wadi": 0.263,  # per Brain spec; ±3pp tolerance
+        "beta_target_delta_topogdn_wadi": 0.263,  # ±3pp tolerance
         "in_tolerance": (
             abs(attack_success_rate - 0.263) <= 0.03 if attack_success_rate is not None else None
         ),

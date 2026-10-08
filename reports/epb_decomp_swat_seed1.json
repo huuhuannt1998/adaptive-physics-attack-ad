@@ -1,0 +1,34 @@
+{
+  "dataset": "swat",
+  "detector": "gdn",
+  "seed": 1,
+  "epsilon": 0.1,
+  "budget": 5,
+  "n_trials": 100,
+  "T_total": {
+    "median": 2.824876308441162,
+    "p95": 3.9342431664466857,
+    "max": 3.963120937347412,
+    "mean": 3.0743589663505553,
+    "frac_gt_eps": 1.0
+  },
+  "A_attack": {
+    "median": 0.099644985049963,
+    "p95": 0.09996635094285011,
+    "max": 0.09999670833349228,
+    "mean": 0.09951898187398911,
+    "frac_gt_eps": 0.0
+  },
+  "M_path": {
+    "median": 2.824876308441162,
+    "p95": 3.9342431664466857,
+    "max": 3.963120937347412,
+    "mean": 3.0743589663505553,
+    "frac_gt_eps": 1.0
+  },
+  "dominant_coord_is_path_fraction": 1.0,
+  "dominant_coord_path_share_median": 0.999999999999646,
+  "spearman_T_vs_scoredeg": 0.9947853496194627,
+  "spearman_A_vs_scoredeg": 0.03554755475547554,
+  "spearman_M_vs_scoredeg": 0.9947853496194627
+}

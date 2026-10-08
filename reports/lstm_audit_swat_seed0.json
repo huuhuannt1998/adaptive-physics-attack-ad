@@ -1,0 +1,21 @@
+{
+  "dataset": "swat",
+  "seed": 0,
+  "gdn": {
+    "epb_mean": 0.8199516880679876,
+    "epb_max": 3.0956509113311768,
+    "ood_clamp_deg_undef_mean": 12.48698816540977,
+    "ood_clamp_deg_undef_median": 0.05949807167053223,
+    "ood_clamp_deg_defended_mean": 0.0,
+    "n_oor_windows": 2000
+  },
+  "lstm": {
+    "epb_mean": 0.8199516880679876,
+    "epb_max": 3.0956509113311768,
+    "ood_clamp_deg_undef_mean": 9.324278474837541,
+    "ood_clamp_deg_undef_median": 1.0275993347167969,
+    "ood_clamp_deg_defended_mean": 0.0,
+    "n_oor_windows": 2000
+  },
+  "lstm_clean_f1": 0.7434232250963126
+}
