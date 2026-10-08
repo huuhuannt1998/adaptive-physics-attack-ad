@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----------------------------------------------------------------------------
-Third-party code under repos/ is NOT covered by this license. It is
-redistributed under its original authors' terms: repos/GDN and
-repos/GDN_pyg1x carry the upstream GDN MIT license (Copyright (c) 2021
-d-ailin) in their own LICENSE files; repos/TopoGDN and the repos/GAFExplainer
-submodule remain under their upstream authors' terms.

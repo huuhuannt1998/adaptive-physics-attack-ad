@@ -122,5 +122,8 @@ are in `reports/calibration_split/summary.json`.
 ## License
 
 Code in this repository is released under the [MIT License](LICENSE).
-Vendored third-party code under `repos/` keeps its upstream license (see
-`LICENSE` for details).
+Third-party code under `repos/` is not covered by it and keeps its upstream
+terms: `repos/GDN` and `repos/GDN_pyg1x` carry the upstream GDN MIT license
+(Copyright (c) 2021 d-ailin) in their own `LICENSE` files, and
+`repos/TopoGDN` and the `repos/GAFExplainer` submodule remain under their
+upstream authors' terms.
